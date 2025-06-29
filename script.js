@@ -1,27 +1,4 @@
- // Menu opening/closing functions
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
-            document.body.style.overflow = "hidden"; // Prevent scrolling when sidebar is open
-        }
-
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.body.style.overflow = "auto"; // Re-enable scrolling
-        }
-
-        // Close sidebar when clicking outside
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('mySidebar');
-            const menuIcon = document.querySelector('.menu-icon');
-            
-            if (sidebar.style.width === '250px' && 
-                !sidebar.contains(event.target) && 
-                !menuIcon.contains(event.target)) {
-                closeNav();
-            }
-        });
-
-        // Image Slider Functionality
+  // Image Slider Functionality
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
@@ -86,16 +63,20 @@
         
         // Header scroll behavior - only show at top
         const header = document.getElementById('mainHeader');
+        let lastScrollTop = 0;
         
         window.addEventListener('scroll', () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            // শুধুমাত্র শীর্ষে (স্ক্রল পজিশন 0) হলে হেডার দেখাবে
             if (scrollTop === 0) {
+                // At top - show header
                 header.classList.remove('header-hidden');
-            } else {
+            } else if (scrollTop > 100) {
+                // Scrolled down - hide header
                 header.classList.add('header-hidden');
             }
+            
+            lastScrollTop = scrollTop;
         });
         
         // Product Modal Functionality
@@ -197,44 +178,3 @@
             // Load images on resize
             window.addEventListener('resize', lazyLoad);
         });
-
-        // Image Modal Functionality
-        const imageModal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("modalImage");
-        
-        function openImageModal(src) {
-            modalImg.src = src;
-            imageModal.style.display = "flex";
-            document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
-        }
-        
-        function closeImageModal() {
-            imageModal.style.display = "none";
-            document.body.style.overflow = "auto"; // Re-enable scrolling
-        }
-        
-        // Close modal when clicking outside the image
-        imageModal.addEventListener('click', function(event) {
-            if (event.target === imageModal) {
-                closeImageModal();
-            }
-        });
-        
-        // Add click event to all images to open in modal
-        document.querySelectorAll('.leader-image img, .member-image img, .product-image img, .developer-image img').forEach(img => {
-            img.addEventListener('click', function() {
-                openImageModal(this.src);
-            });
-        });
-        
-        // Add hover animations to cards
-        document.querySelectorAll('.leader-card, .member-card, .product-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-            });
-        });
-        
