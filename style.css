@@ -1,5 +1,4 @@
-
-            :root {
+ :root {
             --primary: #2c5f2d;
             --secondary: #97bc62;
             --accent: #f1c40f;
@@ -20,16 +19,19 @@
             background-color: #f5f7fa;
             color: var(--text);
             line-height: 1.6;
+            padding-top: 180px; /* হেডারের জন্য প্যাডিং যোগ করা হয়েছে */
             padding-bottom: 60px;
         }
         
         /* Header Styles */
         header {
+            position: fixed; /* fixed করা হয়েছে */
+            top: 0;
+            left: 0;
+            width: 100%;
             background: var(--gradient);
             padding: 20px 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
             z-index: 1000;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
@@ -78,6 +80,73 @@
             color: white;
             margin-top: 8px;
             opacity: 0.9;
+        }
+
+        /* Menu Icon */
+        .menu-icon {
+            position: fixed;
+            top: 12px; /* সামঞ্জস্য করা হয়েছে */
+            left: 12px; /* সামঞ্জস্য করা হয়েছে */
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001; /* Above header */
+            background: black;
+            padding: 6px 16px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background 0.3s, transform 0.3s;
+            opacity: 0.7;
+        }
+
+        .menu-icon:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* Sidebar Menu */
+        .sidebar-menu {
+            height: 100%;
+            width: 0; /* Hidden by default */
+            position: fixed;
+            z-index: 1002; /* Above everything */
+            top: 0;
+            left: 0;
+            background-color: var(--dark);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+
+        .sidebar-menu a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu a i {
+            margin-right: 15px;
+            font-size: 22px;
+        }
+        
+        .sidebar-menu a:hover {
+            color: var(--accent);
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu .close-btn-menu {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: white;
         }
         
         /* Notice Section */
@@ -250,7 +319,7 @@
         }
         
         .leader-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
@@ -259,6 +328,18 @@
             height: 220px;
             background-size: cover;
             background-position: center;
+            background-color: #f5f7fa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .leader-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
         
         .leader-info {
@@ -299,6 +380,7 @@
             color: white;
             text-decoration: none;
             transition: all 0.3s;
+            z-index: 10;
         }
         
         .social-link:hover {
@@ -331,7 +413,7 @@
         }
         
         .member-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
         
@@ -340,6 +422,18 @@
             height: 120px;
             background-size: cover;
             background-position: center;
+            background-color: #f5f7fa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
         
         .member-info {
@@ -380,6 +474,7 @@
             justify-content: center;
             color: white;
             text-decoration: none;
+            z-index: 10;
         }
         
         .member-social:hover {
@@ -414,7 +509,7 @@
         }
         
         .product-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.03);
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
         
@@ -426,6 +521,7 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
+            cursor: pointer;
         }
         
         .product-image img {
@@ -650,6 +746,7 @@
             margin: 0 auto 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             overflow: hidden;
+            cursor: pointer;
         }
         
         .developer-image img {
@@ -856,6 +953,45 @@
             transform: translateY(-3px);
         }
         
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease-out;
+        }
+        
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .image-modal-close:hover {
+            color: var(--accent);
+        }
+        
         /* Animations */
         @keyframes marquee {
             0% { transform: translateX(100%); }
@@ -873,6 +1009,17 @@
             100% { transform: scale(1); }
         }
         
+        @keyframes zoomIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -882,6 +1029,10 @@
         .fade-in.appear {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
         }
         
         /* Lazy Loading Styles */
@@ -952,4 +1103,3 @@
                 justify-content: space-around;
             }
         }
-
